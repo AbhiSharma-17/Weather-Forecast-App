@@ -437,6 +437,14 @@ app.post('/api/chat', async (req, res) => {
   });
 });
 
+// Serve frontend static files in production
+app.use(express.static(path.join(__dirname, 'dist')));
+
+// Catch-all route to serve the React app for any other requests (enables client-side routing)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
 app.listen(PORT, () => {
   console.log(`[CLIMATEVISION BACKEND] Listening on port ${PORT}`);
 });
